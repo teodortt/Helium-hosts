@@ -3,8 +3,8 @@ import "firebase/auth";
 import { firebase } from '../components/firebase';
 import Layout from '../components/Layout';
 import styles from '../styles/Home.module.css';
-import Login from '../pages/Login'
-import Tokens from '../components/tokens'
+import Login from './login'
+import Tokens from '../components/Tokens'
 import Head from 'next/head';
 
 function Home() {

@@ -50,9 +50,9 @@ const Login = () => {
 				</form> 
 
 				<div style={{paddingBottom:'50px'}}>
-				<button className="btn btn-success mb-3" onClick={handleLogin}>Sign in with Gmail</button>
+				<img role="button" style={{width:'170px'}} src="https://www.helium.bg/wp-content/uploads/2021/02/btn_google_signin_dark_pressed_web@2x.png" onClick={handleLogin}/>
 				<p><b>OR</b></p>
-				<Link className="nav-link" href="/register"><a><b>Create new account</b></a></Link>
+				<Link href="/register"><button className="btn btn-success">Create new account</button></Link>
 				</div>
 
 		</div>

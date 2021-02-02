@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import Layout from '../components/Layout';
 import { firebase, db } from '../components/firebase';
 import Head from 'next/head';
-import Login from './Login';
+import Login from './login';
 
 const PrivateRoute = () => {
     const [ user, setUser ] = useState(false);
