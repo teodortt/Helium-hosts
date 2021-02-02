@@ -17,7 +17,7 @@ const Layout = ({children}) =>{
           setUser(null);
         }
       })
-    });
+    },[]);
 
     return (
 <div>
