@@ -14,3 +14,259 @@ a {
 * {
   box-sizing: border-box;
 }
+
+
+
+/* custom */
+.updForm{
+  display:none;
+}
+.content{
+  min-height: 100vh;
+}
+.pt100{
+  padding-top: 100px;
+}
+.data-hotspots{
+  margin-top:100px;
+}
+footer{
+  padding: 0;
+  height: 160px;
+  background: #12232f;
+  width: 100%;
+  font-weight: 700;
+  /* text-align: center; */
+}
+.close{
+  margin-top: 10px;
+  background:black;
+  border: 1px solid #eaeaea;
+  border-radius: 20px;
+  width: 32px;
+  padding-bottom: 7px;
+  float:left;
+}
+.fixed-title{
+  position: fixed;
+  background-color:#e4dddd;
+  margin-left: 5%;
+}
+.fixed-footer{
+  position: fixed;
+  margin-top:30px;
+  right: 0;
+  bottom: 0;
+  width: 30%;
+  height:100%;
+  background-color: rgba(11, 103, 156, 0.9);
+  /* background-color: rgba(250, 242, 242, 0.9); */
+  color: rgb(0, 0, 0);
+  text-align: center;
+
+  -webkit-transition: 1s;
+  transition: 1s;
+  transition-property: all;
+	transition-duration: .5s;
+  transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
+  overflow-x: auto;
+}
+@media (max-width:600px) {
+  .fixed-footer{
+    position: fixed;
+    margin-top:30px;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height:100%;
+    background-color: rgba(250, 242, 242);
+    color: rgb(0, 0, 0);
+    text-align: center;
+  
+    -webkit-transition: 1s;
+    transition: 1s;
+    transition-property: all;
+    transition-duration: .5s;
+    transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
+    overflow-x: auto;
+  }
+  .fixed-title{
+    position: fixed;
+    background-color: rgba(250, 242, 242);
+    margin-left: 35px;
+  }
+}
+.fixed-footer.closed{
+  width: 0;
+}
+.cls{
+  margin-top: 10px;
+}
+.fixcont{
+  padding-top:70px;
+}
+
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+
+/* ////////////////// */
+  .wallet{
+    font-size:15px;
+  }
+  @media only screen and (max-width: 600px) {
+   .wallet{
+     font-size:60%;
+   }
+  }
+body {
+  margin: 0px;
+  font-family: 'segoe ui';
+}
+
+.nav {
+  height: 70px;
+  width: 100%;
+  background-color: #4d4d4d;
+  position: fixed;
+  z-index: 1;
+}
+
+.nav > .nav-header {
+  display: inline;
+}
+
+.nav > .nav-header > .nav-title {
+  display: inline-block;
+  font-size: 22px;
+  color: #fff;
+  padding: 10px 10px 10px 20px;
+}
+
+.nav > .nav-btn {
+  display: none;
+}
+
+.nav > .nav-links {
+  display: inline;
+  float: right;
+  font-size: 16px;
+  padding-left: 10px;
+}
+/* right logout button */
+.nav > .nav-right {
+  display: inline;
+  float: right;
+  font-size: 16px;
+  padding-left: 70%;
+  padding-top:20px;
+  margin:0 auto;
+}
+
+.nav > .nav-links > a {
+  display: inline-block;
+  padding: 20px 10px 13px 10px;
+  text-decoration: none;
+  color: #efefef;
+  height: 70px;
+  transition: 0.5s;
+}
+
+.nav > .nav-links > a:hover {
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
+.nav > .nav-right > a {
+  transition: 0.5s;
+}
+.nav > .nav-right > a:hover {
+  background-color: rgba(0, 0, 0, 0.3);
+  border-radius: 5px;
+  padding:10px;
+}
+
+.nav > #nav-check {
+  display: none;
+}
+
+@media (max-width:600px) {
+  .nav > .nav-btn {
+    display: inline-block;
+    position: absolute;
+    right: 0px;
+    top: 0px;
+  }
+  .nav > .nav-btn > label {
+    display: inline-block;
+    width: 70px;
+    height: 70px;
+    padding: 20px;
+  }
+  .nav > .nav-btn > label:hover,.nav  #nav-check:checked ~ .nav-btn > label {
+    background-color: rgba(0, 0, 0, 0.3);
+  }
+  .nav > .nav-btn > label > span {
+    display: block;
+    width: 25px;
+    height: 10px;
+    border-top: 2px solid #eee;
+  }
+  .nav > .nav-links {
+    position: absolute;
+    display: block;
+    width: 100%;
+    background-color: #333;
+    height: 0px;
+    transition: all 0.3s ease-in;
+    overflow-y: hidden;
+    top: 70px;
+    left: 0px;
+  }
+  .nav > .nav-links > a {
+    display: block;
+    width: 100%;
+  }
+  .nav > #nav-check:not(:checked) ~ .nav-links {
+    height: 0px;
+  }
+  .nav > #nav-check:checked ~ .nav-links {
+    height: calc(100vh - 50px);
+    overflow-y: auto;
+  }
+}

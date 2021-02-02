@@ -1,65 +1,59 @@
-import Head from 'next/head'
-import styles from '../styles/Home.module.css'
+import React, { useState, useEffect } from 'react';
+import "firebase/auth";
+import { firebase } from '../components/firebase';
+import Layout from '../components/Layout';
+import styles from '../styles/Home.module.css';
+import Login from '../pages/Login'
+import Tokens from '../components/tokens'
+import Head from 'next/head';
 
-export default function Home() {
-  return (
-    <div className={styles.container}>
-      <Head>
-        <title>Create Next App</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
+function Home() {
+  const [ user, setUser ] = useState(null);
+  const [ channels, setChannels ] = useState(null);
 
-      <main className={styles.main}>
-        <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
-        </h1>
+  //Authorization
+  useEffect(() =>{
+    firebase.auth().onAuthStateChanged((user) => {
+      if(user){
+        setUser(user);
+      } else {
+        setUser(null);
+      }
+    })
+  });
 
-        <p className={styles.description}>
-          Get started by editing{' '}
-          <code className={styles.code}>pages/index.js</code>
-        </p>
+  // channels
+  useEffect(() =>{
+    const db = firebase.firestore();
+   db.collection('channels').onSnapshot(snapshot => {
+     const docs = [];
+     snapshot.forEach(doc => {
+       docs.push({
+        ...doc.data(),
+         id: doc.id
+       });
+     });
+     setChannels(docs);
+   });
+  },[]);
 
-        <div className={styles.grid}>
-          <a href="https://nextjs.org/docs" className={styles.card}>
-            <h3>Documentation &rarr;</h3>
-            <p>Find in-depth information about Next.js features and API.</p>
-          </a>
-
-          <a href="https://nextjs.org/learn" className={styles.card}>
-            <h3>Learn &rarr;</h3>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
-          </a>
-
-          <a
-            href="https://github.com/vercel/next.js/tree/master/examples"
-            className={styles.card}
-          >
-            <h3>Examples &rarr;</h3>
-            <p>Discover and deploy boilerplate example Next.js projects.</p>
-          </a>
-
-          <a
-            href="https://vercel.com/import?filter=next.js&utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-          >
-            <h3>Deploy &rarr;</h3>
-            <p>
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
-        </div>
-      </main>
-
-      <footer className={styles.footer}>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{' '}
-          <img src="/vercel.svg" alt="Vercel Logo" className={styles.logo} />
-        </a>
-      </footer>
+  return user ? (
+    <Layout>
+    <div className="container-fluid text-center">
+      <h3>Wallets information</h3>
+      <Tokens/>
     </div>
-  )
+    </Layout>
+  ) : ( 
+      <div>
+        <Head>
+          <link rel="stylesheet" href="https://bootswatch.com/4/darkly/bootstrap.min.css"/>
+          <title>Helium app</title>
+        </Head>
+          <div className="App container pt-5">
+            <Login/>
+           </div>
+        </div>
+  );
 }
+export default Home;
