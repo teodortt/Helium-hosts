@@ -18,6 +18,11 @@ a {
 
 
 /* custom */
+@media only screen and (max-width: 400px) {
+.socialf{
+padding-left:45px;
+}
+}
 .updForm{
   display:none;
 }

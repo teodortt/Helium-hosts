@@ -89,8 +89,8 @@ const Register = () => {
 				<b id="password-validation" style={{color:'#ff0000'}}></b>
 
 				<br />
-
 				<label htmlFor="telegram">Telegram:</label>
+				<div className="socialf">
 				<br></br>
 				<small>t.me/</small>
 				<input type="text" placeholder="Telegram"
@@ -99,8 +99,9 @@ const Register = () => {
 				<small className="form-text text-muted">Input telegram user to be able to chat!
 				</small>
 				<br />
-				<div className="dsc">
+				</div>
 				<label htmlFor="discord">Discord:</label>
+				<div className="socialf">
 				<br></br>
 				<small style={{marginLeft:'-70px'}}>discord.com/users/</small>
 				<input type="text" placeholder="Discord"
@@ -108,7 +109,6 @@ const Register = () => {
 					onChange={(e) => setForm({ ...form, discord: e.target.value })} />
 				<br />
 				<b id="socials-validation" style={{color:'#ff0000'}}></b>
-
 				</div>
 				<button type="submit" id="submit" className="btn btn-primary mt-3">
 					Submit

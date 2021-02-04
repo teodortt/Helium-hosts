@@ -6,18 +6,18 @@ import { firebase } from '../components/firebase';
 
 const Layout = ({children}) =>{
     
-    const [ user, setUser ] = useState(null);
+    // const [ user, setUser ] = useState(null);
 
     //Authorization
-    useEffect(() =>{
-      firebase.auth().onAuthStateChanged((user) => {
-        if(user){
-          setUser(user);
-        } else {
-          setUser(null);
-        }
-      })
-    },[]);
+    // useEffect(() =>{
+    //   firebase.auth().onAuthStateChanged((user) => {
+    //     if(user){
+    //       setUser(user);
+    //     } else {
+    //       setUser(null);
+    //     }
+    //   })
+    // },[]);
 
     return (
 <div>

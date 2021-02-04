@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { db } from './firebase';
 
 export const Tokens = () => {
@@ -64,11 +64,18 @@ export const Tokens = () => {
 
   function Button({wallet}){
     const[state,setState] = useState(false);
-    navigator.clipboard.writeText(wallet);
+    const copyValue = useRef(null)
+
+    function handleFocus(){
+      copyValue.current.focus()
+      navigator.clipboard.writeText(wallet);
+      setState(true)
+    }
+    // navigator.clipboard.writeText(wallet);
 
     return(
-    <button className={state ? 'btn btn-success btn-sm' : 'btn btn-secondary btn-sm'} onClick={e=>setState(true)}>
-      {state ? 'Copied to clipboard!' : 'Copy wallet ID'}
+    <button className={state ? 'btn btn-success btn-sm' : 'btn btn-info btn-sm'} ref={copyValue} onClick={handleFocus}>
+      {state ? 'Copied to clipboard!' : 'Copy my wallet ID'}
     </button>)
   }
 
@@ -94,7 +101,7 @@ export const Tokens = () => {
 
   <div className="row pt-4">
     <div className="col-sm">
-{tokens.slice(0, 15).filter((items, idx) => idx % 3 == 0).map((token, index) => {
+{tokens.slice(0, 6).filter((items, idx) => idx % 3 == 0).map((token, index) => {
       return (
         <div key={index}>
 
@@ -118,7 +125,7 @@ export const Tokens = () => {
     }    </div>
     {/* end 1 */}
     <div className="col-sm">
-{tokens.slice(0, 15).filter((items, idx) => idx % 3 == 1).map((token, index) => {
+{tokens.slice(0, 6).filter((items, idx) => idx % 3 == 1).map((token, index) => {
       return (
         <div key={index}>
 <div className="card text-white bg-primary mb-3" style={{maxWidth:'20rem'}}>
@@ -139,7 +146,7 @@ export const Tokens = () => {
     }    </div>
     {/* end2 */}
     <div className="col-sm">
-    {tokens.slice(0, 15).filter((items, idx) => idx % 3 == 2).map((token, index) => {
+    {tokens.slice(0, 8).filter((items, idx) => idx % 3 == 2).map((token, index) => {
       return (
         <div key={index}>
 <div className="card text-white bg-primary mb-3" style={{maxWidth:'20rem'}}>

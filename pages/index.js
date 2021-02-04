@@ -13,13 +13,16 @@ function Home() {
 
   //Authorization
   useEffect(() =>{
-    firebase.auth().onAuthStateChanged((user) => {
-      if(user){
-        setUser(user);
+    let isMounted = true;
+
+    const auth = firebase.auth().onAuthStateChanged((user) => {
+      if(user && isMounted) {
+         setUser(user);
       } else {
         setUser(null);
       }
     })
+    return () => {  isMounted = false;  };
   },[]);
 
   // channels

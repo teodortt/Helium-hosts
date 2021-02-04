@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Layout from '../components/Layout';
 import { firebase, db } from '../components/firebase';
 import Head from 'next/head';
@@ -9,16 +9,31 @@ const PrivateRoute = () => {
     const [ data, setData ] = useState([]);
     const [ showform, setShowform ] = useState(false);
 
-    function authorization(){
-      firebase.auth().onAuthStateChanged((user) => {
-        if(user){
-          setUser(user);
-          profileID(user);
+    // function authorization(){
+    //   firebase.auth().onAuthStateChanged((user) => {
+    //     if(user){
+    //       setUser(user);
+    //       profileID(user);
+    //     } else {
+    //       setUser(null);
+    //     }
+    //   })
+    // };
+
+    useEffect(() =>{
+      let isMounted = true;
+
+      const auth = firebase.auth().onAuthStateChanged((user) => {
+        if(user && isMounted){
+           setUser(user);
+           profileID(user); 
+
         } else {
           setUser(null);
         }
       })
-    };
+      return () => {  isMounted = false;  };
+    },[]);
     
     function profileID(user){
       var nummers = db.collection("channels").doc("general").collection('messages').where('user', '==', user.uid);
@@ -36,16 +51,23 @@ const PrivateRoute = () => {
       });
     }
 
-    useEffect(() =>{
-      authorization();
-    },[])
+    // useEffect(() =>{
+    //   authorization();
+    // },[])
     
     function Button({wallet}){
       const[state,setState] = useState(false);
-      navigator.clipboard.writeText(wallet);
+      const copyValue = useRef(null)
+
+      function handleFocus(){
+        copyValue.current.focus()
+        navigator.clipboard.writeText(wallet);
+        setState(true)
+      }
+      // navigator.clipboard.writeText(wallet);
   
       return(
-      <button className={state ? 'btn btn-success btn-sm' : 'btn btn-info btn-sm'} onClick={e=>setState(true)}>
+      <button className={state ? 'btn btn-success btn-sm' : 'btn btn-info btn-sm'} ref={copyValue} onClick={handleFocus}>
         {state ? 'Copied to clipboard!' : 'Copy my wallet ID'}
       </button>)
     }
@@ -57,16 +79,16 @@ const PrivateRoute = () => {
           querySnapshot.forEach(function (doc) {
  
           doc.ref.update({
-            wallet: e.target.elements[0].value,
-            telegram: e.target.elements[1].value,
-            discord: e.target.elements[2].value,
+            // wallet: e.target.elements[0].value,
+            telegram: e.target.elements[0].value,
+            discord: e.target.elements[1].value,
            }).then(
              ()=>{
               let results = doc.data();
               setData(results);
-              e.target.elements[3].click();
+              e.target.elements[2].click();
               /* update email address */
-              user.updateEmail(e.target.elements[0].value + '@gmail.com');
+              // user.updateEmail(e.target.elements[0].value + '@gmail.com');
              }
            )
           });
@@ -96,8 +118,8 @@ const PrivateRoute = () => {
        }
 
 <form className={`form-group col-md-6 mx-auto text-center ${!showform ? 'updForm' : ''}`} onSubmit={updateForm}>
-        <label>Wallet:</label>
-        <input className="form-control" type="text" defaultValue={data.wallet} />
+        {/* <label>Wallet:</label>
+        <input className="form-control" type="text" defaultValue={data.wallet} /> */}
 
         <label>Telegram:</label>
         <input className="form-control" type="text" defaultValue={data.telegram} />
