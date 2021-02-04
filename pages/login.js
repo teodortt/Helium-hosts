@@ -49,10 +49,10 @@ const Login = () => {
 					<button type="submit" className="btn btn-primary">Submit</button>
 				</form> 
 
-				<div style={{paddingBottom:'50px'}}>
-				<img role="button" style={{width:'170px'}} src="https://www.helium.bg/wp-content/uploads/2021/02/btn_google_signin_dark_pressed_web@2x.png" onClick={handleLogin}/>
+				<div style={{paddingBottom:'10px'}}>
+				<Link href="/register"><button className="btn btn-success mb-2">Create new account</button></Link>
 				<p><b>OR</b></p>
-				<Link href="/register"><button className="btn btn-success">Create new account</button></Link>
+				<img role="button" style={{width:'170px'}} src="https://www.helium.bg/wp-content/uploads/2021/02/btn_google_signin_dark_pressed_web@2x.png" onClick={handleLogin}/>
 				</div>
 
 		</div>

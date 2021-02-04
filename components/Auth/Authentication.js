@@ -60,7 +60,7 @@ export const manualRegister = async ({ wallet, password, telegram, discord }) =>
 		if (isNewUser) {
 		  //delete the created user
 		  console.log('user ' + user.email + ' does not exist!');
-		  window.location = '/form';
+		//   window.location = '/form';
 		} else {
 		  // your sign in flow
 		  console.log('user ' + user.email + ' does exist!');

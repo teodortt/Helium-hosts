@@ -75,7 +75,7 @@ export const Tokens = () => {
 
     return(
     <button className={state ? 'btn btn-success btn-sm' : 'btn btn-info btn-sm'} ref={copyValue} onClick={handleFocus}>
-      {state ? 'Copied to clipboard!' : 'Copy my wallet ID'}
+      {state ? 'Copied to clipboard!' : 'Copy Wallet ID'}
     </button>)
   }
 

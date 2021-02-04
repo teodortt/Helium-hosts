@@ -1,15 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import "firebase/auth";
-import { firebase } from '../components/firebase';
+import { db, firebase } from '../components/firebase';
 import Layout from '../components/Layout';
 import styles from '../styles/Home.module.css';
-import Login from './login'
-import Form from './form'
-import Tokens from '../components/Tokens'
+import Login from './login';
+import Form from './form';
+import Tokens from '../components/Tokens';
 import Head from 'next/head';
 
 function Home() {
   const [ user, setUser ] = useState(null);
+  const[ userdata, setUserdata ] = useState(false);
   const [ channels, setChannels ] = useState(null);
 
   //Authorization
@@ -19,12 +20,30 @@ function Home() {
     const auth = firebase.auth().onAuthStateChanged((user) => {
       if(user && isMounted) {
          setUser(user);
+         profileID(user);
       } else {
         setUser(null);
       }
     })
     return () => {  isMounted = false;  };
   },[]);
+
+  //get user data
+  function profileID(user){
+    var nummers = db.collection("channels").doc("general").collection('messages').where('user', '==', user.uid);
+    nummers.get().then((querySnapshot) => {
+      if (!querySnapshot.empty) {
+        querySnapshot.forEach(function (doc) {
+        let results = doc.data();
+        setUserdata(true)
+        console.log(results)
+        });
+      } else {
+        setUserdata(false)
+        console.log("false")
+      }
+    });
+  }
 
   // channels
   useEffect(() =>{
@@ -43,10 +62,29 @@ function Home() {
 
   return user ? (
     <>
+  {/* if user is logged for first time with google */}
+  {!userdata && (
+    <>
+      <Head>
+      <link rel="stylesheet" href="https://bootswatch.com/4/darkly/bootstrap.min.css"/>
+      <title>Helium app</title>
+      </Head>
       <Form/>
+    </>
+    )}
+
+    {/* if user is logged and filled his profile */}
+    {userdata && <Layout>
+    <div className="container-fluid text-center">
+    <h3>Wallets information</h3>
+    <Tokens/>
+
+    </div>
+    </Layout>}
     </>
   ) : ( 
       <div>
+        {/* if user is not logged in */}
         <Head>
           <link rel="stylesheet" href="https://bootswatch.com/4/darkly/bootstrap.min.css"/>
           <title>Helium app</title>

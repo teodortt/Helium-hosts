@@ -2,6 +2,7 @@ import React,{ useState } from 'react';
 import { useRouter } from 'next/router';
 import { db, firebase } from '../components/firebase';
 import Layout from '../components/Layout';
+import Tokens from '../components/Tokens';
 
 const Form = () => {
   const [ user, setUser ] = useState(null);
@@ -117,11 +118,16 @@ const Form = () => {
       </form>}
 
     </div>
-    </Layout>
+     </Layout>
   ) : (
     <div>
       <Layout>
-        <h3 className="text-center" style={{paddingTop:'150px'}}>Your helium profile is already sumbitted!</h3>
+        <div className="container-fluid text-center">
+        <h3>Wallets information</h3>
+        <Tokens/>
+
+        </div>
+        {/* <h3 className="text-center" style={{paddingTop:'150px'}}>Your helium profile is already sumbitted!</h3> */}
       </Layout>
     </div>
   );
